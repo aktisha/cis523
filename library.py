@@ -184,3 +184,33 @@ class TukeyTransformer(BaseEstimator, TransformerMixin):
   def fit_transform(self, X, y = None):
     result = self.transform(X)
     return result
+
+class MinMaxTransformer(BaseEstimator, TransformerMixin):
+  from sklearn.preprocessing import MinMaxScaler
+
+  def __init__(self):
+    pass  #takes no arguments
+
+  #fill in rest below
+
+  def fit(self, X, y = None):
+    print(f"\nWarning: {self.__class__.__name__}.fit does nothing.\n")
+    return X
+
+  def transform(self, X):
+    assert isinstance(X, pd.core.frame.DataFrame), f'{self.__class__.__name__}.transform expected Dataframe but got {type(X)} instead.'
+
+    X_copy = X.copy()
+    X_column_names = X_copy.columns.tolist()
+    scaler = self.MinMaxScaler()
+    res = scaler.fit_transform(X_copy)
+    X_copy = pd.DataFrame(res)
+    X_copy.columns = X_column_names
+
+    X_copy.describe(include='all').T
+
+    return X_copy
+
+  def fit_transform(self, X, y = None):
+      result = self.transform(X)
+      return result
