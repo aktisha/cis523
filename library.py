@@ -90,7 +90,7 @@ class DropColumnsTransformer(BaseEstimator, TransformerMixin):
         print("lala")
         # change
         assert set(self.column_list) <= set(X.columns.to_list()), f'{self.__class__.__name__}.the dataframe does not contain "{columns_not_found}" to keep.'
-      X_ = titanic_features[self.column_list]
+      X_ = X_[self.column_list]
     elif self.action == 'drop':
       if columns_not_found:
         print(f"\nWarning: {self.__class__.__name__} does not contain {self.columns_not_found} to drop.\n")
