@@ -354,3 +354,20 @@ def threshold_results(thresh_list, actuals, predicted):
 
   fancy_df = result_df.style.format(precision=2).set_properties(**properties).set_table_styles([headers])
   return (result_df, fancy_df)
+
+# Halving Search function
+
+def halving_search(model, grid, x_train, y_train, factor=3, scoring='roc_auc'):
+  halving_cv = HalvingGridSearchCV(
+    model, 
+    grid,
+    scoring=scoring,
+    n_jobs=-1,
+    min_resources="exhaust",
+    factor=factor,
+    cv=5, random_state=1234,
+    refit=True,
+    )
+
+  grid_result = halving_cv.fit(x_train, y_train)
+  return grid_result
