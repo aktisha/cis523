@@ -358,6 +358,9 @@ def threshold_results(thresh_list, actuals, predicted):
 # Halving Search function
 
 def halving_search(model, grid, x_train, y_train, factor=3, scoring='roc_auc'):
+  from sklearn.experimental import enable_halving_search_cv
+  from sklearn.model_selection import HalvingGridSearchCV
+  
   halving_cv = HalvingGridSearchCV(
     model, 
     grid,
